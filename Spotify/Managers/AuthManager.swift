@@ -10,7 +10,20 @@ import Foundation
 final class AuthManager {
     static let shared = AuthManager()
     
+    struct Constants {
+        static let clientID = "aabc8412ae0f4c889652f2cb5c0156a1"
+        static let clientSecret = "932a8ac0d09a42e096c0bcfa1c9c0d60"
+    }
+    
     private init () {}
+    
+    public var signInURL: URL? {
+        let scopes = "user-read-private"
+        let redirectURI = "https://www.iosacademy.io"
+        let base = "https://accounts.spotify.com/authorize"
+        let string = "\(base)?response_type=code&client_id=\(Constants.clientID)&scope=\(scopes)&redirect_uri=\(redirectURI)&&show_dialog=TRUE"
+        return URL(string: string)
+    }
     
     var isSignedIn: Bool {
         return false
@@ -30,5 +43,20 @@ final class AuthManager {
     
     private var shouldRefreshToken: Bool {
         return false
+    }
+    
+    public func exchangeCodeForToken(
+        code: String,
+        completion: @escaping ((Bool) -> Void)
+    ) {
+        
+    }
+    
+    public func refreshAccessToken() {
+        
+    }
+    
+    public func cacheToken() {
+        
     }
 }
